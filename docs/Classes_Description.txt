@@ -1,0 +1,86 @@
+------------------------Classes responsible for back end----------------------------------
+Hole
+Segment
+Process
+Memory
+
+Allocator
+	First_Fit
+	Best_Fit
+	Worst_Fit
+-------------------------------------------------------------------------------------------
+	
+------------------------Classes responsible for front end----------------------------------
+Gtk.***** <-- choose whatever Gtk class you may like, replace ***** with window / grid / dialog
+	Main_Window
+	Add_Process_Dialog
+	Add_Segment_Dialog
+	Add_Hole_Dialog
+	New_Memory_Dialog
+	Output_Grid
+	Error_Dialog
+
+Gtk.Box <-- Gtk container class to hold multiple items(e.g text + button)
+	list_element
+		Hole_list_element
+		Segment_list_element
+		Process_list_element
+-----------------------------------------------------------------------------------------	
+
+	
+Hole:
+	vars:
+		int start_address
+		int size
+		
+Segment:
+	vars:
+		int segment_index
+		int process_index
+		string name
+		int start_address
+		int size
+	functions:
+		__init__(self, String name,int segment_index,int process_index, int start_address, int size)
+		remove_segment()
+		
+process:
+	vars:
+		int process_index
+		string name
+		array Segment
+	functions:
+		__init__(self, String name)
+		__del__(self)
+		add_segment(Segment segment)
+		remove_segment(int segment_index)
+		
+Memory:
+	vars:
+		int size
+		array Process
+	functions:
+		__init__(self, int size, array hole)
+		add_Process(Segment segment)
+		remove_Process(int process_index)
+		
+Allocator:
+	vars:
+		array Process
+	functions:
+		__init__(self, array Process)
+		allocate() <---- the children of this class should implement this function
+		
+First_Fit:
+	functions:
+		__init__(self, array Process) <--call parent's constructor
+		allocate()
+Best_Fit:
+	functions:
+		__init__(self, array Process) <--call parent's constructor
+		allocate()
+		
+Best_Fit:
+	functions:
+		__init__(self, array Process) <--call parent's constructor
+		allocate()
