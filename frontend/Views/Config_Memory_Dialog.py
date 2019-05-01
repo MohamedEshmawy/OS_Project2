@@ -52,22 +52,24 @@ class Config_Memory_Dialog(Gtk.Dialog):
 		grid.attach(self.hole_listbox, 4, 0, 15, 8)
 
 		#if memory already had holes then show them
-		self.create_hole_list_box()
+		self.update_hole_list_box()
 		#adding the grid layout we built to the dialog window
 		self.get_content_area().add(grid)
 
+		self.show_all()
 
 
 	def on_done_clicked(self, widget):
+		self.memory.set_size(int(self.size_text.get_text()))
 		self.destroy()
 
 	def on_add_hole_clicked(self, widget):
 		dialog = Add_Hole_Dialog(self.parent_view, self.memory)
 		response = dialog.run()
-		self.create_hole_list_box()
+		self.update_hole_list_box()
 
 		
-	def create_hole_list_box(self):
+	def update_hole_list_box(self):
 		#clear the list
 		for child in self.hole_listbox.get_children():
 			self.hole_listbox.remove(child)
@@ -81,4 +83,4 @@ class Config_Memory_Dialog(Gtk.Dialog):
 	def hole_delete_callback_func(self, widget, *data):
 		hole_id = data[0]
 		self.memory.remove_hole(hole_id)
-		self.create_hole_list_box()
+		self.update_hole_list_box()

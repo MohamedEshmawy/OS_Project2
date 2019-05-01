@@ -1,7 +1,7 @@
 from backend.data_containers.Segment import Segment
 
 class Process():
-	def __init__(self, name, process_id = 0):
+	def __init__(self, name = '', process_id = 0):
 		self.process_id = process_id
 		self.name = name
 		self.segments = []
@@ -26,7 +26,8 @@ class Process():
 			counter += 1
 		
 
-	def set_id(process_id):
+	def set_id(self, process_id):
 		self.process_id = process_id
 
-		
+	def set_name(self, name):
+		self.name = name

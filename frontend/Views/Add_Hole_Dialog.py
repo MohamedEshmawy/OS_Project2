@@ -30,9 +30,11 @@ class Add_Hole_Dialog(Gtk.Dialog):
 		self.size_text = Gtk.Entry()
 
 
-		#setting up the 'Add Hole' button
+		#setting up the 'Add Hole', 'Cancel' buttons
 		self.add_hole_btn = Gtk.Button('Add Hole')
 		self.add_hole_btn.connect('clicked', self.on_add_hole_clicked)
+		self.cancel_btn = Gtk.Button('Cancel')
+		self.cancel_btn.connect('clicked', self.on_cancel_clicked)
 
 		#attaching the items to the grid
 		grid.attach(label_start_address, 	 0, 0, 1, 1)
@@ -42,6 +44,7 @@ class Add_Hole_Dialog(Gtk.Dialog):
 		grid.attach(self.size_text, 	1, 1, 1, 1)
 
 		grid.attach(self.add_hole_btn, 0, 2, 1, 1)
+		grid.attach(self.cancel_btn, 1, 2, 1, 1)
 
 		#adding the grid layout we built to the dialog window
 		self.get_content_area().add(grid)
@@ -55,4 +58,8 @@ class Add_Hole_Dialog(Gtk.Dialog):
 		#store the hole data in memory
 		hole = Hole(start_address, size)
 		self.memory.add_hole(hole)
+		self.destroy()
+
+
+	def on_cancel_clicked(self, widget):
 		self.destroy()
