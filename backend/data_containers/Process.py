@@ -19,7 +19,12 @@ class Process():
 
 
 	def remove_segment(self, segment_id):
-		self.segments.pop(segment_id)
+		counter = 0
+		for seg in self.segments:
+			if seg.segment_id == segment_id:
+				self.segments.pop(counter)
+			counter += 1
+		
 
 	def set_id(process_id):
 		self.process_id = process_id

@@ -5,6 +5,7 @@ from gi.repository import Gtk
 from backend.data_containers.Memory import Memory
 from frontend.Views.Config_Memory_Dialog import Config_Memory_Dialog
 
+
 class Main_Window_Grid(Gtk.Grid):
 	def __init__(self, parent_view):
 		Gtk.Grid.__init__(self)

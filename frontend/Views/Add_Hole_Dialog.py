@@ -8,7 +8,7 @@ from backend.data_containers.Hole import Hole
 class Add_Hole_Dialog(Gtk.Dialog):
 	def __init__(self,parent_window, memory):
 		Gtk.Dialog.__init__(self, "Add Hole", parent_window)
-
+		
 		#create a grid layout
 		grid = Gtk.Grid()
 
@@ -45,6 +45,8 @@ class Add_Hole_Dialog(Gtk.Dialog):
 
 		#adding the grid layout we built to the dialog window
 		self.get_content_area().add(grid)
+
+		self.show_all()
 
 	def on_add_hole_clicked(self, widget):
 		start_address = int(self.start_address_text.get_text())

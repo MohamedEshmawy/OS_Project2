@@ -21,7 +21,12 @@ class Memory():
 		self.process_id += 1
 
 	def remove_process(self, process_id):
-		self.processes.pop(process_id)
+		counter = 0
+		for process in self.processes:
+			if process.process_id == process_id:
+				self.processes.pop(counter)
+			counter += 1
+		
 
 	def add_hole(self, hole):
 		hole.set_id(self.hole_id)
@@ -29,7 +34,11 @@ class Memory():
 		self.hole_id += 1
 
 	def remove_hole(self, hole_id):
-		self.holes.pop(hole_id)
+		counter = 0
+		for hole in self.holes:
+			if hole.hole_id == hole_id:
+				self.holes.pop(counter)
+			counter += 1
 
 	def set_size(self, size):
 		self.size = size

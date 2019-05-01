@@ -4,7 +4,7 @@ from gi.repository import Gtk
 
 from backend.data_containers.Memory import Memory
 from frontend.Views.Add_Hole_Dialog import Add_Hole_Dialog
-
+from frontend.containers.Hole_list_element import Hole_list_element
 
 class Config_Memory_Dialog(Gtk.Dialog):
 	def __init__(self,parent_view, memory):
@@ -38,6 +38,10 @@ class Config_Memory_Dialog(Gtk.Dialog):
 
 		#setting up the list box to hold holes
 		self.hole_listbox = Gtk.ListBox()
+		self.hole_listbox.set_border_width(4)
+
+
+
 
 		#attaching the items to the grid
 		grid.attach(box_size, 0, 3, 1, 1)
@@ -47,8 +51,11 @@ class Config_Memory_Dialog(Gtk.Dialog):
 
 		grid.attach(self.hole_listbox, 4, 0, 15, 8)
 
+		#if memory already had holes then show them
+		self.create_hole_list_box()
 		#adding the grid layout we built to the dialog window
 		self.get_content_area().add(grid)
+
 
 
 	def on_done_clicked(self, widget):
@@ -56,5 +63,22 @@ class Config_Memory_Dialog(Gtk.Dialog):
 
 	def on_add_hole_clicked(self, widget):
 		dialog = Add_Hole_Dialog(self.parent_view, self.memory)
-		dialog.show_all()
+		response = dialog.run()
+		self.create_hole_list_box()
+
 		
+	def create_hole_list_box(self):
+		#clear the list
+		for child in self.hole_listbox.get_children():
+			self.hole_listbox.remove(child)
+
+		for hole in self.memory.holes:
+			label = "Hole"+ str(hole.hole_id) +", Start Address: "+ str(hole.start_address) +", Size: "+ str(hole.size)
+			hole_list_element = Hole_list_element(label, hole.hole_id, self.hole_delete_callback_func)
+			self.hole_listbox.add(hole_list_element)
+		self.hole_listbox.show_all()
+
+	def hole_delete_callback_func(self, widget, *data):
+		hole_id = data[0]
+		self.memory.remove_hole(hole_id)
+		self.create_hole_list_box()
