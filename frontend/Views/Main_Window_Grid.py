@@ -80,7 +80,7 @@ class Main_Window_Grid(Gtk.Grid):
 		for child in self.process_listbox.get_children():
 			self.process_listbox.remove(child)
 
-		for process in self.memory.processes:
+		for process in reversed(self.memory.processes):
 			if len(process.segments) == 0:
 				self.memory.remove_process(process.process_id)
 				continue
