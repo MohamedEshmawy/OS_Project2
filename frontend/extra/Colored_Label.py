@@ -11,3 +11,7 @@ class Colored_Label(Gtk.Label):
 		self.color = Gdk.color_parse(color)
 		rgba = Gdk.RGBA.from_color(self.color)
 		self.override_background_color(0,rgba)
+		self.connect('activate-link', self.click)
+
+	def click(self, widget):
+		self.override_background_color(0,Gdk.RGBA.from_color('red'))
