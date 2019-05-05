@@ -11,7 +11,7 @@ class Output_Dialog(Gtk.Dialog):
 		Gtk.Dialog.__init__(self, "Output", parent_view)
 
 		#set the dialog width
-		width = 800
+		width = 1200
 
 		#storing the parent_view
 		self.parent_view = parent_view
