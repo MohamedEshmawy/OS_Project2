@@ -1,5 +1,4 @@
-from backend.data_containers.Memory import Memory
-import copy
+from backend.Allocators.Allocator import Allocator
 
 class Allocator():
 	def __init__(self, memory, withCompaction):
