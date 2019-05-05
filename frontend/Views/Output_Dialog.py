@@ -61,6 +61,7 @@ class Output_Dialog(Gtk.Dialog):
 			#attach the start address label
 			grid.attach(start_address_label, hole.start_address, 10, 1, 1)
 
+		#insert the final address at the end of the memory
 		end_address_label = Gtk.Label(str(memory.size))
 		grid.attach(end_address_label, memory.size, 10, 1, 1)
 			
