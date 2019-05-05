@@ -11,7 +11,7 @@ class Output_Dialog(Gtk.Dialog):
 		Gtk.Dialog.__init__(self, "Output", parent_view)
 
 		#set the dialog width
-		width = 1200
+		width = 1000
 
 		#storing the parent_view
 		self.parent_view = parent_view
@@ -60,6 +60,20 @@ class Output_Dialog(Gtk.Dialog):
 			grid.attach(color_label, hole.start_address, 0, hole.size, 10)
 			#attach the start address label
 			grid.attach(start_address_label, hole.start_address, 10, 1, 1)
+
+		for allocated_hole in memory.allocated_holes:
+			#generate the label
+			label = "Allocated Space:"+ str(allocated_hole.hole_id)
+			#generate the color
+			color = "#000000"				
+			#create the color label
+			color_label = Colored_Label(label, color)
+			#create the start address label
+			start_address_label = Gtk.Label(str(allocated_hole.start_address))
+			#attach the colorlabel
+			grid.attach(color_label, allocated_hole.start_address, 0, allocated_hole.size, 10)
+			#attach the start address label
+			grid.attach(start_address_label, allocated_hole.start_address, 10, 1, 1)
 
 		#insert the final address at the end of the memory
 		end_address_label = Gtk.Label(str(memory.size))
