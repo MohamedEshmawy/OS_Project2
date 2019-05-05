@@ -6,6 +6,6 @@ class Allocator_BestFit():
 
 
 
-	def allocate()
+	def allocate():
 		#Do stuff here and return memory
 		
