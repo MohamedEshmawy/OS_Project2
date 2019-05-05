@@ -15,7 +15,7 @@ class Test(Gtk.Window):
         self.set_border_width(10)
 
         memory = Memory()
-        memory.size = 150
+        memory.size = 200
 
         P0 = Process(name = "P0")
 
@@ -26,7 +26,7 @@ class Test(Gtk.Window):
         P0S1.start_address = 125
 
         H0 = Hole(0, 50)
-        H1 = Hole(100, 25)
+        H1 = Hole(100, 50)
 
         P0.add_segment(P0S0)
         P0.add_segment(P0S1)
@@ -34,12 +34,12 @@ class Test(Gtk.Window):
         memory.add_process(P0)
         memory.add_hole(H0)
         memory.add_hole(H1)
-
-        self.add(Output_Dialog(self, memory))
         
         self.connect('destroy', Gtk.main_quit)
         self.show_all()
 
+        dialog = Output_Dialog(self, memory)
+        dialog.run()
 
     def run(self):
         Gtk.main()
