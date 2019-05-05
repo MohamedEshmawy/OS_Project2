@@ -8,6 +8,6 @@ class Allocator():
 
 
 
-	def allocate()
+	def allocate():
 		pass
 		
