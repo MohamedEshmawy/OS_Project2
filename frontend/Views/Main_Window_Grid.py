@@ -3,10 +3,20 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
 from backend.data_containers.Memory import Memory
+#from backend.Allocators.Allocator_WorstFit import Allocator_WorstFit
+#from backend.Allocators.Allocator_BestFit import Allocator_BestFit
+from backend.Allocators.Allocator_FirstFit import Allocator_FirstFit
+
 from frontend.Views.Config_Memory_Dialog import Config_Memory_Dialog
 from frontend.Views.Add_Process_Dialog import Add_Process_Dialog
 from frontend.Views.Config_Process_Dialog import Config_Process_Dialog
 from frontend.containers.Process_list_element import Process_list_element
+from frontend.Views.Output_Dialog import Output_Dialog
+#''' for test
+from backend.data_containers.Hole import Hole
+from backend.data_containers.Process import Process
+from backend.data_containers.Segment import Segment
+#'''
 
 class Main_Window_Grid(Gtk.Grid):
 	def __init__(self, parent_view):
@@ -38,7 +48,7 @@ class Main_Window_Grid(Gtk.Grid):
 		add_process_btn = Gtk.Button('Add Process')
 		add_process_btn.connect('clicked', self.add_process_dialog)
 		start_btn = Gtk.Button('Start')
-
+		start_btn.connect('clicked', self.output_dialog)
 
 		#setting up "With Compaction" check box
 		self.with_compaction_chk = Gtk.CheckButton()
@@ -64,6 +74,31 @@ class Main_Window_Grid(Gtk.Grid):
 
 		self.attach(self.process_listbox, 4, 0, 15, 8)
 
+		#for testing
+		#'''
+		P0 = Process(name = "P0")
+
+		P0S0 = Segment(P0, "S0", 50)
+		P0S0.start_address = 50
+
+		P0S1 = Segment(P0, "S1", 25)
+		P0S1.start_address = 125
+
+		H0 = Hole(0, 65)
+		H1 = Hole(100, 35)
+
+		P0.add_segment(P0S0)
+		P0.add_segment(P0S1)
+
+		self.memory.add_process(P0)
+		self.memory.add_hole(H0)
+		self.memory.add_hole(H1)
+
+		self.memory.set_size(200)
+
+		self.update_process_list_box()
+		#'''
+
 	def config_memory_dialog(self, widget):
 		dialog = Config_Memory_Dialog(self.parent_view, self.memory)
 		dialog.run()
@@ -73,6 +108,22 @@ class Main_Window_Grid(Gtk.Grid):
 		dialog = Add_Process_Dialog(self.parent_view, self.memory)
 		dialog.run()
 		self.update_process_list_box()
+
+	def output_dialog(self, widget):
+		if self.radio_firstFit.get_active():
+			allocator = Allocator_FirstFit(self.memory, self.with_compaction_chk.get_active())
+			allocated_memory = allocator.allocate()
+
+		#if radio_bestFit.get_active():
+			#allocator = Allocator_BestFit(self.memory, with_compaction_chk.get_active())
+			#allocated_memory = allocator.allocate()
+
+		#if radio_worstFit.get_active():
+			#allocator = Allocator_WorstFit(self.memory, with_compaction_chk.get_active())
+			#allocated_memory = allocator.allocate()
+
+		dialog = Output_Dialog(self.parent_view, allocated_memory)
+		dialog.run()
 
 	def update_process_list_box(self):
 		self.size_text.set_text(str(self.memory.size))
