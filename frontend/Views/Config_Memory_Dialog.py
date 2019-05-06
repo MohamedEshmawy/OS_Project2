@@ -5,6 +5,7 @@ from gi.repository import Gtk
 from backend.data_containers.Memory import Memory
 from frontend.Views.Add_Hole_Dialog import Add_Hole_Dialog
 from frontend.containers.Hole_list_element import Hole_list_element
+from frontend.Views.Error_Dialog import Error_Dialog
 
 class Config_Memory_Dialog(Gtk.Dialog):
 	def __init__(self,parent_view, memory):
@@ -60,8 +61,11 @@ class Config_Memory_Dialog(Gtk.Dialog):
 
 
 	def on_done_clicked(self, widget):
-		self.memory.set_size(int(self.size_text.get_text()))
-		self.destroy()
+		if self.memory.set_size(int(self.size_text.get_text())) == 1:
+			self.destroy()
+		else:
+			dialog = Error_Dialog(self.parent_view, 'Failed: not sufficent memory size, delete some holes or increase size')
+			dialog.run()
 
 	def on_add_hole_clicked(self, widget):
 		dialog = Add_Hole_Dialog(self.parent_view, self.memory)
