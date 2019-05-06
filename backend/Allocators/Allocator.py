@@ -4,8 +4,8 @@ import copy
 class Allocator():
 	def __init__(self, memory, withCompaction):
 		self.memory = copy.deepcopy(memory)
-		self.withCompaction = withCompaction
-
+		if withCompaction == True:
+			self.memory.compact()
 
 
 	def allocate():

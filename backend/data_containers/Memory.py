@@ -56,9 +56,6 @@ class Memory():
 			counter += 1
 
 
-
-
-
 	def set_size(self, size):
 		self.size = size
 		for i in range(0,len(self.allocated_holes)):
@@ -83,3 +80,20 @@ class Memory():
 		if hole.size == 0:
 			self.remove_hole(hole.hole_id)
 		return 1
+
+	def compact(self):
+		compact_allocated_hole_size = 0
+		for allocated_hole in reversed(self.allocated_holes):
+			compact_allocated_hole_size += allocated_hole.size
+			self.allocated_holes.pop(-1)
+
+		compact_hole_size = 0
+		for hole in reversed(self.holes):
+			compact_hole_size += hole.size
+			self.holes.pop(-1)
+
+		compact_allocated_hole = Hole(0, compact_allocated_hole_size)
+		self.add_allocated_hole(compact_allocated_hole)
+
+		compact_hole = Hole(compact_allocated_hole_size, compact_hole_size)
+		self.add_hole(compact_hole)

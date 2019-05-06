@@ -79,6 +79,7 @@ class Config_Memory_Dialog(Gtk.Dialog):
 			hole_list_element = Hole_list_element(label, hole.hole_id, self.hole_delete_callback_func)
 			self.hole_listbox.add(hole_list_element)
 		self.hole_listbox.show_all()
+		self.size_text.set_text(str(self.memory.size))
 
 	def hole_delete_callback_func(self, widget, *data):
 		hole_id = data[0]

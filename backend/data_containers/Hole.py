@@ -6,3 +6,4 @@ class Hole():
 	
 	def set_id(self, hole_id):
 		self.hole_id = hole_id
+
