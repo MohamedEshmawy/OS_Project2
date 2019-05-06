@@ -32,7 +32,7 @@ class Memory():
 		
 
 	def add_hole(self, new_hole):
-		for hole in self.holes
+		for hole in self.holes:
 			if new_hole.start_address == hole.size + hole.start_address:
 				hole.size += new_hole.size
 				return
@@ -67,7 +67,7 @@ class Memory():
 
 	def set_size(self, size):
 		for hole in self.holes:
-			if hole.start_address + hole.size > size
+			if hole.start_address + hole.size > size:
 				return 0 #failed: not sufficent memory size
 
 		self.size = size
