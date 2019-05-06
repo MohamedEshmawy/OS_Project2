@@ -66,6 +66,10 @@ class Memory():
 
 
 	def set_size(self, size):
+		for hole in self.holes:
+			if hole.start_address + hole.size > size
+				return 0 #failed: not sufficent memory size
+
 		self.size = size
 		for i in range(0,len(self.allocated_holes)):
 			self.allocated_holes.pop(0)
@@ -78,6 +82,8 @@ class Memory():
 		last_hole = self.holes[len(self.holes)-1]
 		if last_hole.start_address + last_hole.size < self.size:
 			self.add_allocated_hole(Hole(last_hole.start_address + last_hole.size, self.size-(last_hole.start_address + last_hole.size)))
+
+		return 1 # success
 
 		
 	def fill_hole(self, segment, hole):
