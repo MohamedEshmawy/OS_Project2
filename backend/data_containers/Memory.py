@@ -31,9 +31,18 @@ class Memory():
 			counter += 1
 		
 
-	def add_hole(self, hole):
-		hole.set_id(self.hole_id)
-		self.holes.append(hole)
+	def add_hole(self, new_hole):
+		for hole in self.holes
+			if new_hole.start_address == hole.size + hole.start_address:
+				hole.size += new_hole.size
+				return
+
+			if new_hole.start_address + new_hole.size == hole.start_address:
+				hole.start_address = new_hole.start_address
+				return
+
+		new_hole.set_id(self.hole_id)
+		self.holes.append(new_hole)
 		self.hole_id += 1
 
 	def remove_hole(self, hole_id):
